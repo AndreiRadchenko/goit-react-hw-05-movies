@@ -2,7 +2,7 @@ import * as style from './Searchbar.styled';
 import { MdSearch } from 'react-icons/md';
 import PropTypes from 'prop-types';
 
-export const Searchbar = ({ onSubmit }) => {
+export const Searchbar = ({ value, onSubmit }) => {
   const handleSubmit = event => {
     event.preventDefault();
     const query = event.currentTarget.elements.searchInput.value.trim();
@@ -21,6 +21,7 @@ export const Searchbar = ({ onSubmit }) => {
         autocomplete="off"
         autoFocus
         placeholder="Search movies"
+        defaultValue={value}
       />
     </style.SearchForm>
   );
@@ -28,4 +29,5 @@ export const Searchbar = ({ onSubmit }) => {
 
 Searchbar.propType = {
   onSubmit: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };

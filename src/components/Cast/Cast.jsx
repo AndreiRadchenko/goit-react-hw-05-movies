@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import movieService from 'utils/moviedb';
 import * as style from './Cast.styled';
+import { nanoid } from 'nanoid';
 
 export const Cast = () => {
   const { movieId } = useParams();
@@ -18,13 +19,6 @@ export const Cast = () => {
             name: actor.name,
           }))
         );
-        // console.log(
-        //   data.cast.map(actor => ({
-        //     profile_path: actor.profile_path,
-        //     character: actor.character,
-        //     name: actor.name,
-        //   }))
-        // );
       } catch (error) {
         console.log(error);
       }
@@ -35,11 +29,10 @@ export const Cast = () => {
 
   return (
     <div>
-      {/* <h2>Cast component</h2> */}
       <ul>
         {cast.map(a => {
           return (
-            <style.item key={a.character}>
+            <style.item key={nanoid()}>
               <img
                 src={
                   'https://www.themoviedb.org/t/p/w138_and_h175_face' +

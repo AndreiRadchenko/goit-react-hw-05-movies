@@ -101,6 +101,18 @@ class FetchMoviService {
     return response.data;
   }
 
+  // https://api.themoviedb.org/3/movie/913290/reviews?api_key=9673c8c8f98cb6e489d5cad6b3789836&language=en-US&page=1
+  async getFilmReviews(id) {
+    const { searchParams, MOVIE_ID_URL, RESPONSE_OK } = this;
+    const response = await axios.get(MOVIE_ID_URL + id + '/reviews', {
+      params: searchParams,
+    });
+    if (response.status !== RESPONSE_OK) {
+      throw new Error(response.status);
+    }
+    return response.data;
+  }
+
   //https://api.themoviedb.org/3/movie/913290/videos?api_key=9673c8c8f98cb6e489d5cad6b3789836&language=en-US
 
   async getMovieTrailer(id) {

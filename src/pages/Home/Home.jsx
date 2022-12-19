@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import movieService from 'utils/moviedb';
 import * as style from './Home.styled';
 
-export const Home = () => {
+const Home = () => {
   const [trendingFilms, setTrendingFilms] = useState([]);
 
   useEffect(() => {
@@ -36,3 +36,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

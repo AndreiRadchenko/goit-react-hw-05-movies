@@ -1,13 +1,16 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import movieService from 'utils/moviedb';
 import * as style from './MovieDetails.styled';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { GoBackButton } from 'components/GobackButton/GoBackButtton';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const { movieId } = useParams();
   const [filmData, setFilmData] = useState({});
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
     async function fetchdata() {
@@ -23,9 +26,11 @@ export const MovieDetails = () => {
 
   const { poster_path, original_title, vote_average, overview, genres } =
     filmData;
+  // console.log(location.state.from);
 
   return (
     <>
+      <GoBackButton backLinkHref={backLinkHref} />
       <style.FilmCard>
         {!poster_path ? (
           <Skeleton height={373} width={264} />
@@ -60,10 +65,14 @@ export const MovieDetails = () => {
         <p>Additional information</p>
         <ul>
           <style.item>
-            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+            <Link to={`cast`} state={{ from: backLinkHref }}>
+              Cast
+            </Link>
           </style.item>
           <style.item>
-            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+            <Link to={`reviews`} state={{ from: backLinkHref }}>
+              Reviews
+            </Link>
           </style.item>
         </ul>
       </style.AdditionalInfo>
@@ -71,3 +80,5 @@ export const MovieDetails = () => {
     </>
   );
 };
+
+export default MovieDetails;
